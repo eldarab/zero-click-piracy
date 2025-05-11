@@ -2,7 +2,7 @@
 # --------------------------------------------------------------
 # 1. Prompts user for install directory (default %USERPROFILE%\zero-click-piracy)
 # 2. Prompts user to choose a Music folder (GUI dialog)
-# 3. Downloads script.ps1 + script.ico from GitHub
+# 3. Downloads spotdl.ps1 + spotdl.ico from GitHub
 # 4. Creates a desktop shortcut that runs the script with ExecutionPolicy Bypass
 # 5. Entirely user‑level‑—no admin rights required
 
@@ -53,21 +53,21 @@ if (-not (Test-Path $MusicDir)) {
 
 # 3️⃣  Download payloads
 $rawBase = "https://raw.githubusercontent.com/$RepoUser/$RepoName/$Branch"
-Write-Host "Downloading script.ps1 & script.ico to $InstallDir …"
-Invoke-WebRequest "$rawBase/script.ps1" -OutFile "$InstallDir\script.ps1" -UseBasicParsing
-Invoke-WebRequest "$rawBase/script.ico"   -OutFile "$InstallDir\script.ico"  -UseBasicParsing
+Write-Host "Downloading spotdl.ps1 & spotdl.ico to $InstallDir …"
+Invoke-WebRequest "$rawBase/spotdl.ps1" -OutFile "$InstallDir\spotdl.ps1" -UseBasicParsing
+Invoke-WebRequest "$rawBase/spotdl.ico"   -OutFile "$InstallDir\spotdl.ico"  -UseBasicParsing
 
 # 4️⃣  Desktop shortcut
-$desktopLnk = Join-Path $env:USERPROFILE 'Desktop/Zero‑Click Piracy.lnk'
+$desktopLnk = Join-Path $env:USERPROFILE 'Desktop/spot-dl.lnk'
 $wsh = New-Object -ComObject WScript.Shell
 $sc  = $wsh.CreateShortcut($desktopLnk)
 $sc.TargetPath  = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"
-$sc.Arguments   = "-NoLogo -NoProfile -ExecutionPolicy Bypass -File `"$InstallDir\script.ps1`" `"$MusicDir`""
+$sc.Arguments   = "-NoLogo -NoProfile -ExecutionPolicy Bypass -File `"$InstallDir\spotdl.ps1`" `"$MusicDir`""
 $sc.WorkingDirectory = $InstallDir
-$sc.IconLocation     = "$InstallDir\script.ico,0"
+$sc.IconLocation     = "$InstallDir\spotdl.ico,0"
 $sc.Save()
 
-Write-Host "`n✅ Installed under: $InstallDir"
-Write-Host "🎵 Music folder set to: $MusicDir"
-Write-Host "🔗 Shortcut created: $desktopLnk"
-Write-Host "Finished. Enjoy zero‑click piracy!"
+Write-Host "Installed under: $InstallDir"
+Write-Host "Music folder set to: $MusicDir"
+Write-Host "Shortcut created: $desktopLnk"
+Write-Host "Finished."
