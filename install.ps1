@@ -35,11 +35,11 @@ finally {
 # Run installers
 Set-Location $Target
 
-Get-ChildItem -Path "." -Filter "try.ps1" -Recurse | Where-Object {
+Get-ChildItem -Path "." -Filter "install.ps1" -Recurse | Where-Object {
     $_.DirectoryName -ne (Get-Location).Path
 } | ForEach-Object {
     $component = Split-Path $_.DirectoryName -Leaf
     Write-Host "[zero-click-piracy] Installing $component"
-     & $_.FullName
+    & $_.FullName
 }
 Set-Location $env:USERPROFILE
