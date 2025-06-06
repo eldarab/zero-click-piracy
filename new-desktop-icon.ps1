@@ -24,6 +24,12 @@ function New-Desktop-Icon {
     $shortcut = $shell.CreateShortcut($linkPath)
     $shortcut.TargetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     $shortcut.Arguments = "-ExecutionPolicy Bypass -File `"$targetScript`""
-    $shortcut.IconLocation = $iconPath
+
+    if (Test-Path $iconPath) {
+        $shortcut.IconLocation = "$iconPath,0"
+    } else {
+        Write-Warning "Icon not found at $iconPath"
+    }
+
     $shortcut.Save()
 }
