@@ -30,19 +30,17 @@ if (-not (Test-Path $newDesktopIconPath)) {
 }
 . $newDesktopIconPath
 
+# Run the function
 try {
     $scriptSource = "$env:USERPROFILE\zero-click-piracy\spotdl\run.ps1"
     $iconSource   = "$env:USERPROFILE\zero-click-piracy\spotdl\icon.ico"
     $targetDir    = "$env:USERPROFILE\spotdl"
     $DesktopName  = "SpotDL"
 
-    if (Get-Command New-Desktop-Icon -ErrorAction SilentlyContinue) {
-        New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
-        Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."  -ForegroundColor Green
-    } else {
-        Write-Host "[zero-click-piracy] 'New-Desktop-Icon' function not found."  -ForegroundColor Red
-    }
-} catch {
+    New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
+    Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."
+}
+catch {
     Write-Host "[zero-click-piracy] Failed to create desktop icon."
-    Write-Error $_
+    Write-Error "$_"
 }
