@@ -5,6 +5,7 @@ $Branch    = "main"                # Branch to pull
 $ExtractTo = "$env:USERPROFILE"    # Final location (e.g. C:\Users\<you>)
 # ─────────────────────────────────────────────────────────────────────────
 
+# Clone this repo
 $ZipUrl  = "https://github.com/$RepoUser/$RepoName/archive/refs/heads/$Branch.zip"
 $ZipPath = Join-Path $env:TEMP "$RepoName.zip"
 $Target  = Join-Path $ExtractTo  $RepoName
@@ -29,4 +30,12 @@ try {
 }
 finally {
     if (Test-Path $ZipPath) { Remove-Item $ZipPath }
+}
+
+# Run installers
+Set-Location $Target
+
+Get-ChildItem -Path "." -Filter "install.ps1" -Recurse | ForEach-Object {
+    Write-Host "Running $($_.FullName)"
+#    & $_.FullName
 }
