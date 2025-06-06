@@ -28,5 +28,6 @@ if (-not (Test-Path $newDesktopIconPath)) {
 $scriptSource = (Resolve-Path ".\run.ps1").Path
 $iconSource   = (Resolve-Path ".\ytdlp.ico").Path
 $targetDir    = "$env:USERPROFILE\zero-click"
-New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir
-Write-Host "[zero-click-piracy] Created yt-dlp icon on desktop."
+$DesktopName  = "Download YouTube"
+New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
+Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."
