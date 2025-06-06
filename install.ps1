@@ -35,9 +35,12 @@ finally {
 # Run installers
 Set-Location $Target
 
-Get-ChildItem -Path "." -Filter "install.ps1" -Recurse | ForEach-Object {
+Get-ChildItem -Path "." -Filter "install.ps1" -Recurse | Where-Object {
+    ($_.DirectoryName -split [io.path]::DirectorySeparatorChar).Count -gt `
+    ((Get-Location).Path -split [io.path]::DirectorySeparatorChar).Count
+} | ForEach-Object {
     $component = Split-Path $_.DirectoryName -Leaf
     Write-Host "Installing $component"
-#    & $_.FullName
+    # & $_.FullName
 }
 Set-Location $env:USERPROFILE
