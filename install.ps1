@@ -40,3 +40,4 @@ Get-ChildItem -Path "." -Filter "install.ps1" -Recurse | ForEach-Object {
     Write-Host "Installing $component"
 #    & $_.FullName
 }
+Set-Location $env:USERPROFILE
