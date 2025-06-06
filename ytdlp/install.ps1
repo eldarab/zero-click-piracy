@@ -28,8 +28,8 @@ if (-not (Test-Path $newDesktopIconPath)) {
 try {
     $scriptSource = "$env:USERPROFILE\zero-click-piracy\ytdlp\run.ps1"
     $iconSource   = "$env:USERPROFILE\zero-click-piracy\ytdlp\icon.ico"
-    $targetDir    = "$env:USERPROFILE\zero-click\ytdlp"
-    $DesktopName  = "YT-DLP Launcher"
+    $targetDir    = $ytPath
+    $DesktopName  = "YT-DLP"
 
     New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
     Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."
