@@ -1,17 +1,32 @@
-# Config
-$RepoUser  = "eldarab"
-$RepoName  = "zero-click-piracy"
-$Branch    = "main"
-$ZipUrl    = "https://gitlab.com/$RepoUser/$RepoName/-/archive/$Branch/$RepoName-$Branch.zip"
-$ZipPath   = "$env:TEMP\$RepoName.zip"
-$ExtractTo = "$env:USERPROFILE"
+# ── Config ───────────────────────────────────────────────────────────────
+$RepoUser  = "eldarab"             # GitHub user/org
+$RepoName  = "zero-click-piracy"   # Repository name
+$Branch    = "main"                # Branch to pull
+$ExtractTo = "$env:USERPROFILE"    # Final location (e.g. C:\Users\<you>)
+# ─────────────────────────────────────────────────────────────────────────
 
-# Download ZIP
-Invoke-WebRequest -Uri $ZipUrl -OutFile $ZipPath
+$ZipUrl  = "https://github.com/$RepoUser/$RepoName/archive/refs/heads/$Branch.zip"
+$ZipPath = Join-Path $env:TEMP "$RepoName.zip"
+$Target  = Join-Path $ExtractTo  $RepoName
+$TempDir = "$RepoName-$Branch"    # Folder GitHub puts inside the ZIP
 
-# Extract and rename
-Expand-Archive -Path $ZipPath -DestinationPath $ExtractTo -Force
-Rename-Item -Path "$ExtractTo\$RepoName-$Branch" -NewName $RepoName -Force
+try {
+    Write-Host "→ Downloading $ZipUrl"
+    Invoke-WebRequest $ZipUrl -OutFile $ZipPath -UseBasicParsing -ErrorAction Stop
 
-# Clean up
-Remove-Item $ZipPath
+    if (Test-Path $Target) {
+        Write-Host "→ Removing existing $Target"
+        Remove-Item $Target -Recurse -Force
+    }
+
+    Write-Host "→ Extracting to $ExtractTo"
+    Expand-Archive -Path $ZipPath -DestinationPath $ExtractTo -Force
+
+    Write-Host "→ Renaming $TempDir → $RepoName"
+    Rename-Item -Path (Join-Path $ExtractTo $TempDir) -NewName $RepoName -Force
+
+    Write-Host "✓ Done – repo ready at $Target"
+}
+finally {
+    if (Test-Path $ZipPath) { Remove-Item $ZipPath }
+}
