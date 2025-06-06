@@ -29,7 +29,7 @@ try {
     $scriptSource = "$env:USERPROFILE\zero-click-piracy\ytdlp\run.ps1"
     $iconSource   = "$env:USERPROFILE\zero-click-piracy\ytdlp\icon.ico"
     $targetDir    = "$env:USERPROFILE\zero-click\ytdlp"
-    $DesktopName  = "Download YouTube"
+    $DesktopName  = "YT-DLP Launcher"
 
     New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
     Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."

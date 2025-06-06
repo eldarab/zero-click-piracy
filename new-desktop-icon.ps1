@@ -1,9 +1,9 @@
 function New-Desktop-Icon {
     param (
-        [string]$scriptSource,
-        [string]$iconSource,
-        [string]$targetDir,
-        [string]$DesktopName = $(Split-Path $scriptSource -LeafBase)
+        [string]$scriptSource,  # run.ps1
+        [string]$iconSource,    # icon.ico
+        [string]$targetDir,     # path/to/script_and_icon
+        [string]$DesktopName = $(Split-Path $scriptSource -LeafBase)  # desktop lnk filename
     )
 
     # Define paths
