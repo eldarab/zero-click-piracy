@@ -17,7 +17,7 @@ if (Get-Command yt-dlp -ErrorAction SilentlyContinue) {
 
 # ─────────────────────────────────────────────────────────────────────────
 # import create icon
-$newDesktopIconPath = "$env:USERPROFILE\PycharmProjects\zero-click-piracy\new-desktop-icon.ps1"
+$newDesktopIconPath = "$env:USERPROFILE\zero-click-piracy\new-desktop-icon.ps1"
 if (-not (Test-Path $newDesktopIconPath)) {
     throw "[zero-click-piracy] Missing required script: $newDesktopIconPath"
 } else {
@@ -26,8 +26,8 @@ if (-not (Test-Path $newDesktopIconPath)) {
 
 # Run the function
 try {
-    $scriptSource = "$env:USERPROFILE\PycharmProjects\zero-click-piracy\ytdlp\run.ps1"
-    $iconSource   = "$env:USERPROFILE\PycharmProjects\zero-click-piracy\ytdlp\icon.ico"
+    $scriptSource = "$env:USERPROFILE\zero-click-piracy\ytdlp\run.ps1"
+    $iconSource   = "$env:USERPROFILE\zero-click-piracy\ytdlp\icon.ico"
     $targetDir    = "$env:USERPROFILE\zero-click\ytdlp"
     $DesktopName  = "Download YouTube"
 
