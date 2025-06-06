@@ -38,12 +38,6 @@ function New-Desktop-Icon {
     $iconPath = Join-Path $targetDir (Split-Path $iconSource -Leaf)
     $linkPath = Join-Path $desktopPath ("$DesktopName.lnk")
 
-    if (Test-Path $iconPath) {
-        $shortcut.IconLocation = "$iconPath,0"
-    } else {
-        Write-Warning "Icon not found at $iconPath"
-    }
-
     # Create target directory
     New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
 
@@ -56,16 +50,21 @@ function New-Desktop-Icon {
     $shortcut = $shell.CreateShortcut($linkPath)
     $shortcut.TargetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     $shortcut.Arguments = "-ExecutionPolicy Bypass -File `"$targetScript`""
-    $shortcut.IconLocation = $iconPath
+
+    if (Test-Path $iconPath) {
+        $shortcut.IconLocation = "$iconPath,0"
+    } else {
+        Write-Warning "Icon not found at $iconPath"
+    }
+
     $shortcut.Save()
 }
 
-
-# actually create it
+# Run the function
 try {
     $scriptSource = "$env:USERPROFILE\PycharmProjects\zero-click-piracy\ytdlp\run.ps1"
     $iconSource   = "$env:USERPROFILE\PycharmProjects\zero-click-piracy\ytdlp\icon.ico"
-    $targetDir    = "$env:USERPROFILE\zero-click"
+    $targetDir    = "$env:USERPROFILE\zero-click\ytdlp"
     $DesktopName  = "Download YouTube"
 
     New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
