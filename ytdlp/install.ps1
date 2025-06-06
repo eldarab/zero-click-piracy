@@ -14,3 +14,18 @@ if (Get-Command yt-dlp -ErrorAction SilentlyContinue) {
 
     Write-Host "[zero-click-piracy] yt-dlp installed and added to PATH."
 }
+
+# ─────────────────────────────────────────────────────────────────────────
+# import create icon
+$newDesktopIconPath = Join-Path $PSScriptRoot '..\new-desktop-icon.ps1'
+if (-not (Test-Path $newDesktopIconPath)) {
+    throw "Missing required script: $newDesktopIconPath"
+} else {
+    . $newDesktopIconPath
+}
+
+# actually create it
+$scriptSource = (Resolve-Path ".\run.ps1").Path
+$iconSource   = (Resolve-Path ".\ytdlp.ico").Path
+$targetDir    = "$env:USERPROFILE\zero-click"
+New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir
