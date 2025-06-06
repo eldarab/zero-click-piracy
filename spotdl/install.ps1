@@ -6,7 +6,7 @@ Write-Host "[zero-click-piracy] python is executing from: $(where.exe python)" -
 
 # ── SpotDL: install only if missing ─────────────────────────────────────
 if (-not (Get-Command spotdl -ErrorAction SilentlyContinue)) {
-    Write-Host "[zero-click-piracy] spotdl not found – installing..." -ForegroundColor Cyan
+    Write-Host "[zero-click-piracy] Installing spotdl..."
     python -m pip install --upgrade spotdl
 } else {
     Write-Host "[zero-click-piracy] spotdl already installed – skipping install." -ForegroundColor Green
@@ -33,7 +33,7 @@ try {
     $DesktopName  = "SpotDL"
 
     New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
-    Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."
+    Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."  -ForegroundColor Green
 } catch {
     Write-Host "[zero-click-piracy] Failed to create desktop icon." -ForegroundColor Red
     Write-Error $_
