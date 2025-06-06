@@ -26,7 +26,7 @@ try {
     Write-Host "→ Renaming $TempDir → $RepoName"
     Rename-Item -Path (Join-Path $ExtractTo $TempDir) -NewName $RepoName -Force
 
-    Write-Host "✓ Done – repo ready at $Target"
+    Write-Host "→ Done – repo ready at $Target"
 }
 finally {
     if (Test-Path $ZipPath) { Remove-Item $ZipPath }
