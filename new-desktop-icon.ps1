@@ -2,14 +2,15 @@ function New-Desktop-Icon {
     param (
         [string]$scriptSource,
         [string]$iconSource,
-        [string]$targetDir
+        [string]$targetDir,
+        [string]$DesktopName = $(Split-Path $scriptSource -LeafBase)
     )
 
     # Define paths
     $desktopPath = [Environment]::GetFolderPath("Desktop")
     $targetScript = Join-Path $targetDir (Split-Path $scriptSource -Leaf)
     $iconPath = Join-Path $targetDir (Split-Path $iconSource -Leaf)
-    $linkPath = Join-Path $desktopPath ((Split-Path $scriptSource -LeafBase) + ".lnk")
+    $linkPath = Join-Path $desktopPath ("$DesktopName.lnk")
 
     # Create target directory
     New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
