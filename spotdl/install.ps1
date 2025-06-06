@@ -1,34 +1,31 @@
-# Check if Python is installed
+# Check that Python is available
 if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
     throw "[zero-click-piracy] Python is not installed or not in PATH."
 }
 Write-Host "[zero-click-piracy] python is executing from: $(where.exe python)" -ForegroundColor Cyan
 
-# Install spotdl directly
-python -m pip install spotdl
-
-# Add Scripts path to PATH for current session
-$pyVer = (python -c "import sys; print(f'Python{sys.version_info.major}{sys.version_info.minor}')")
-$scriptPath = "$env:USERPROFILE\AppData\Roaming\Python\$pyVer\Scripts"
-$env:Path += ";$scriptPath"
-
-# Confirm spotdl is available
+# ── SpotDL: install only if missing ─────────────────────────────────────
 if (-not (Get-Command spotdl -ErrorAction SilentlyContinue)) {
-    Write-Host "[zero-click-piracy] spotdl was installed but is not in PATH permanently. Add $scriptPath to your system PATH."
+    Write-Host "[zero-click-piracy] spotdl not found – installing..." -ForegroundColor Cyan
+    python -m pip install --upgrade spotdl
 } else {
-    Write-Host "[zero-click-piracy] spotdl installed successfully."
+    Write-Host "[zero-click-piracy] spotdl already installed – skipping install." -ForegroundColor Green
 }
 
-# ─────────────────────────────────────────────────────────────────────────
-# import create icon
+# Verify spotdl is callable
+if (-not (Get-Command spotdl -ErrorAction SilentlyContinue)) {
+    Write-Host "[zero-click-piracy] spotdl installed but not in PATH permanently. Add `"$scriptPath`" to your system PATH."
+} else {
+    Write-Host "[zero-click-piracy] spotdl is ready." -ForegroundColor Green
+}
+
+# ── Create desktop shortcut ────────────────────────────────────────────
 $newDesktopIconPath = "$env:USERPROFILE\zero-click-piracy\new-desktop-icon.ps1"
 if (-not (Test-Path $newDesktopIconPath)) {
     throw "[zero-click-piracy] Missing required script: $newDesktopIconPath"
-} else {
-    . $newDesktopIconPath
 }
+. $newDesktopIconPath
 
-# Run the function
 try {
     $scriptSource = "$env:USERPROFILE\zero-click-piracy\spotdl\run.ps1"
     $iconSource   = "$env:USERPROFILE\zero-click-piracy\spotdl\icon.ico"
@@ -37,8 +34,7 @@ try {
 
     New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
     Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."
-}
-catch {
+} catch {
     Write-Host "[zero-click-piracy] Failed to create desktop icon." -ForegroundColor Red
-    Write-Error "$_"
+    Write-Error $_
 }
