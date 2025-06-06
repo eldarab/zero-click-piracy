@@ -2,7 +2,7 @@
 
 ## Installation
 
-1. Copy the following command (📋 Ctrl + C).
+1. Copy the following command (📋 **Ctrl + C**).
 ```powershell
 irm https://raw.githubusercontent.com/eldarab/zero-click-piracy/main/install.ps1 | iex
 ```
