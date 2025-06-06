@@ -8,7 +8,7 @@ if ($pythonCmd) {
         $major = [int]$Matches[1]
         $minor = [int]$Matches[2]
         if ($major -gt 3 -or ($major -eq 3 -and $minor -ge 12)) {
-            Write-Host "[zero-click-piracy] Python $major.$minor is already installed."
+            Write-Host "[zero-click-piracy] Python $major.$minor is already installed." -ForegroundColor Green
             $installNeeded = $false
         } else {
             Write-Host "[zero-click-piracy] Python version is too old ($versionOutput). Updating..."
