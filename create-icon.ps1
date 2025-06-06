@@ -1,10 +1,16 @@
-$scriptSource = "script.ps1"
-$iconSource = "logo.ico"
-$targetDir = "$env:USERPROFILE\zero-click-piracy"
-$targetScript = Join-Path $targetDir "script.ps1"
-$desktop = [Environment]::GetFolderPath("Desktop")
-$linkPath = Join-Path $desktop "Run Script.lnk"
-$iconPath = Join-Path $targetDir "logo.ico"
+# to run:
+# this.ps1 -scriptSource "path\to\script.ps1" -iconSource "path\to\icon.ico" -targetDir "C:\target\folder"
+param (
+    [string]$scriptSource,
+    [string]$iconSource,
+    [string]$targetDir
+)
+
+# Define paths
+$desktopPath = [Environment]::GetFolderPath("Desktop")
+$targetScript = Join-Path $targetDir (Split-Path $scriptSource -Leaf)
+$iconPath = Join-Path $targetDir (Split-Path $iconSource -Leaf)
+$linkPath = Join-Path $desktopPath ((Split-Path $scriptSource -LeafBase) + ".lnk")
 
 # Create target directory
 New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
@@ -13,7 +19,7 @@ New-Item -ItemType Directory -Force -Path $targetDir | Out-Null
 Copy-Item $scriptSource -Destination $targetScript -Force
 Copy-Item $iconSource -Destination $iconPath -Force
 
-# Create shortcut
+# Create shortcut on desktop
 $shell = New-Object -ComObject WScript.Shell
 $shortcut = $shell.CreateShortcut($linkPath)
 $shortcut.TargetPath = "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
