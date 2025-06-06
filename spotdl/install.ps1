@@ -2,7 +2,11 @@
 if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
     throw "[zero-click-piracy] Python is not installed or not in PATH."
 }
-Write-Host "[zero-click-piracy] python is executing from: $(where.exe python)" -ForegroundColor Cyan
+try {
+    Write-Host "[zero-click-piracy] python is executing from: $(where.exe python)" -ForegroundColor Cyan
+} catch {
+    Write-Host "[zero-click-piracy] Could not resolve Python path with where.exe"
+}
 
 # ── SpotDL: install only if missing ─────────────────────────────────────
 if (-not (Get-Command spotdl -ErrorAction SilentlyContinue)) {
@@ -32,8 +36,12 @@ try {
     $targetDir    = "$env:USERPROFILE\spotdl"
     $DesktopName  = "SpotDL"
 
-    New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
-    Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."  -ForegroundColor Green
+    if (Get-Command New-Desktop-Icon -ErrorAction SilentlyContinue) {
+        New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
+        Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."  -ForegroundColor Green
+    } else {
+        Write-Host "[zero-click-piracy] 'New-Desktop-Icon' function not found."  -ForegroundColor Red
+    }
 } catch {
     Write-Host "[zero-click-piracy] Failed to create desktop icon."
     Write-Error $_
