@@ -1,6 +1,7 @@
 $link = Read-Host "Paste the video link"
 $outputFolder = Join-Path $env:USERPROFILE "Videos"
 Write-Host "yt-dlp is executing from: $(where.exe yt-dlp)" -ForegroundColor Cyan
+Write-Host "ffmpeg is executing from: $(where.exe ffmpeg)" -ForegroundColor Cyan
 $title = yt-dlp --get-filename -o "%(title)s" "$link"
 $filename = "$title.mp4"
 $fullPath = Join-Path $outputFolder $filename
