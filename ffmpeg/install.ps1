@@ -1,8 +1,8 @@
 # Check if ffmpeg is already installed and in PATH
 if (Get-Command ffmpeg -ErrorAction SilentlyContinue) {
-    Write-Host "[zero-click-piracy][ffmpeg] ffmpeg is already installed and available in PATH."
+    Write-Host "[zero-click-piracy] ffmpeg is already installed and available in PATH."
 } else {
-    Write-Host "[zero-click-piracy][ffmpeg] ffmpeg not found. Installing..."
+    Write-Host "[zero-click-piracy] ffmpeg not found. Installing..."
 
     $ffmpegUrl = "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip"
     $zipPath = "$env:TEMP\ffmpeg.zip"
@@ -19,5 +19,5 @@ if (Get-Command ffmpeg -ErrorAction SilentlyContinue) {
     [Environment]::SetEnvironmentVariable("Path", "$($env:Path);$binPath", "User")
     $env:Path += ";$binPath"
 
-    Write-Host "[zero-click-piracy][ffmpeg] ffmpeg installed and added to PATH."
+    Write-Host "[zero-click-piracy] ffmpeg installed and added to PATH."
 }
