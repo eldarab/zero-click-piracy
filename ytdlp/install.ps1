@@ -35,6 +35,6 @@ try {
     Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."
 }
 catch {
-    Write-Host "[zero-click-piracy] Failed to create desktop icon." -ForegroundColor Red
+    Write-Host "[zero-click-piracy] Failed to create desktop icon."
     Write-Error "$_"
 }

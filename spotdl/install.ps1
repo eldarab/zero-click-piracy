@@ -35,6 +35,6 @@ try {
     New-Desktop-Icon -scriptSource $scriptSource -iconSource $iconSource -targetDir $targetDir -DesktopName $DesktopName
     Write-Host "[zero-click-piracy] Created '$DesktopName' icon on desktop."  -ForegroundColor Green
 } catch {
-    Write-Host "[zero-click-piracy] Failed to create desktop icon." -ForegroundColor Red
+    Write-Host "[zero-click-piracy] Failed to create desktop icon."
     Write-Error $_
 }
