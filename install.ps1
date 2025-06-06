@@ -36,8 +36,7 @@ finally {
 Set-Location $Target
 
 Get-ChildItem -Path "." -Filter "install.ps1" -Recurse | Where-Object {
-    ($_.DirectoryName -split [io.path]::DirectorySeparatorChar).Count -gt `
-    ((Get-Location).Path -split [io.path]::DirectorySeparatorChar).Count
+    $_.DirectoryName -ne (Get-Location).Path
 } | ForEach-Object {
     $component = Split-Path $_.DirectoryName -Leaf
     Write-Host "Installing $component"
