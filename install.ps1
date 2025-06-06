@@ -39,7 +39,7 @@ Get-ChildItem -Path "." -Filter "install.ps1" -Recurse | Where-Object {
     $_.DirectoryName -ne (Get-Location).Path
 } | ForEach-Object {
     $component = Split-Path $_.DirectoryName -Leaf
-    Write-Host "[zero-click-piracy] Installing $component"
+    Write-Host "[zero-click-piracy] Running $component installation..."
     & $_.FullName
 }
 Set-Location $env:USERPROFILE
