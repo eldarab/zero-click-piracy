@@ -5,7 +5,7 @@
 if (-not ([Security.Principal.WindowsPrincipal] `
           [Security.Principal.WindowsIdentity]::GetCurrent()
          ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Error "Run this in an **elevated** PowerShell window."; exit 1 }
+    Write-Host ">>>> Run this should run in an **elevated** PowerShell window." -ForegroundColor Red; pause; exit 1 }
 
 # --- winget / Store installs -------------------------------------------------
 $pkgs = (winget list --name python --output json 2>$null | ConvertFrom-Json).Packages
