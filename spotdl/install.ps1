@@ -18,7 +18,7 @@ if (-not (Get-Command spotdl -ErrorAction SilentlyContinue)) {
 
 # Verify spotdl is callable
 if (-not (Get-Command spotdl -ErrorAction SilentlyContinue)) {
-    Write-Host "[zero-click-piracy] spotdl installed but not in PATH permanently. Add '$scriptPath' to your system PATH."
+    Write-Host "[zero-click-piracy] Add '$scriptPath' to your system PATH."
 } else {
     Write-Host "[zero-click-piracy] spotdl is ready." -ForegroundColor Green
 }
