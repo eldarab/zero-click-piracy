@@ -13,7 +13,7 @@ if (-not (Get-Command spotdl -ErrorAction SilentlyContinue)) {
     Write-Host "[zero-click-piracy] Installing spotdl..."
     python -m pip install --upgrade spotdl
 } else {
-    Write-Host "[zero-click-piracy] spotdl already installed – skipping install." -ForegroundColor Green
+    Write-Host "[zero-click-piracy] spotdl already installed." -ForegroundColor Green
 }
 
 # Verify spotdl is callable
